@@ -64,7 +64,7 @@ export function Hero({ nextEvent, loading }: Props) {
           {loading
             ? 'Cargando…'
             : nextEvent
-            ? (isBirthday ? '🎂 Próximo Cumpleaños' : '🎉 Próximo Día Festivo')
+            ? (isBirthday ? 'Proximo Cumpleanos' : 'Proximo Dia Festivo')
             : 'Sin eventos próximos'}
         </motion.p>
 

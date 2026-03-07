@@ -30,10 +30,9 @@ export interface CalendarEvent {
   dateStr: string;   // YYYY-MM-DD — month+day used for recurring calculation
   nextDate: Date;    // next occurrence
   isToday: boolean;
-  emoji: string;
   descripcion?: string;
   departamento?: string;
-  subtype?: string;  // holiday tipo
+  subtype?: string;  // holiday tipo: 'nacional' | 'empresa' | 'regional'
 }
 
 export type TabFilter = 'todos' | 'cumpleanos' | 'festivos';

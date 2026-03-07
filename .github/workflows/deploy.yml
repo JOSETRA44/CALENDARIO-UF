@@ -35,9 +35,10 @@ jobs:
         env:
           NEXT_PUBLIC_SUPABASE_URL:      ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
-          # Set to your repo name, e.g. /calendario-uf
-          # Leave empty if using a custom domain or username.github.io
-          NEXT_PUBLIC_BASE_PATH:         ${{ vars.NEXT_PUBLIC_BASE_PATH }}
+          # Auto-detects /repo-name from the GitHub repository name.
+          # Override by setting NEXT_PUBLIC_BASE_PATH in GitHub → Settings → Variables
+          # (e.g. '' for a custom domain, or '/otro-nombre' for a different path)
+          NEXT_PUBLIC_BASE_PATH: ${{ vars.NEXT_PUBLIC_BASE_PATH || format('/{0}', github.event.repository.name) }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

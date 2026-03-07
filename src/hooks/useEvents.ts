@@ -31,14 +31,13 @@ export function useEvents(): UseEventsReturn {
       if (e2) throw new Error(e2.message);
 
       const birthdayEvents: CalendarEvent[] = ((births ?? []) as Birthday[]).map(b => ({
-        id:          b.id,
-        type:        'birthday',
-        nombre:      b.nombre,
-        dateStr:     b.fecha_nacimiento,
-        nextDate:    nextOccurrence(b.fecha_nacimiento),
-        isToday:     isToday(b.fecha_nacimiento),
-        emoji:       '🎂',
-        descripcion: b.descripcion,
+        id:           b.id,
+        type:         'birthday',
+        nombre:       b.nombre,
+        dateStr:      b.fecha_nacimiento,
+        nextDate:     nextOccurrence(b.fecha_nacimiento),
+        isToday:      isToday(b.fecha_nacimiento),
+        descripcion:  b.descripcion,
         departamento: b.departamento,
       }));
 
@@ -55,7 +54,6 @@ export function useEvents(): UseEventsReturn {
             dateStr:     h.fecha,
             nextDate:    next,
             isToday:     isToday(h.fecha),
-            emoji:       h.icono ?? '🎉',
             descripcion: h.descripcion,
             subtype:     h.tipo,
           };
