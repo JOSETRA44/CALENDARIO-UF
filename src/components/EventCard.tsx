@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Cake, Flag, Building2, MapPin, Clock } from 'lucide-react';
+import { Cake, Flag, Building2, MapPin, Clock, Sparkles } from 'lucide-react';
 import { decompose, formatDateLong, labelCountdown, msUntil } from '@/lib/dates';
 import type { CalendarEvent } from '@/types';
 
@@ -27,40 +27,49 @@ export function EventCard({ event, index, variant = 'grid' }: Props) {
   const cd   = decompose(msUntil(nextDate));
   const text = labelCountdown(cd, isToday);
 
-  const accent    = isBirthday ? '#f43f5e' : '#f59e0b';
-  const iconCls   = isBirthday ? 'bg-rose-500/10 text-rose-400'  : 'bg-amber-500/10 text-amber-400';
-  const badgeCls  = isBirthday ? 'text-rose-400'                 : 'text-amber-400';
-  const footerCls = isToday    ? 'text-emerald-400'
-                  : cd.days < 3 ? 'text-amber-400' : 'text-slate-500';
+  const iconCls = isBirthday
+    ? 'bg-rose-500/15 text-rose-400 ring-1 ring-rose-500/20'
+    : 'bg-amber-500/15 text-amber-400 ring-1 ring-amber-500/20';
+
+  const badgeCls = isToday
+    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white'
+    : isBirthday ? 'text-rose-400' : 'text-amber-400';
+
+  const footerCls = isToday     ? 'text-emerald-400'
+                  : cd.days < 1 ? 'text-rose-400'
+                  : cd.days < 3 ? 'text-amber-400'
+                  : 'text-slate-500';
+
+  const accentBar  = isToday ? 'accent-bar-today' : isBirthday ? 'accent-bar-birthday' : 'accent-bar-holiday';
+  const cornerGlow = isToday ? 'corner-glow-today' : isBirthday ? 'corner-glow-birthday' : 'corner-glow-holiday';
 
   return (
     <motion.article
       role="listitem"
       layout
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0  }}
-      exit={{    opacity: 0, scale: 0.96 }}
-      transition={{ delay: index * 0.03, type: 'spring', stiffness: 300, damping: 28 }}
-      whileHover={{ y: -3, transition: { type: 'spring', stiffness: 500, damping: 32 } }}
+      exit={{    opacity: 0, scale: 0.95 }}
+      transition={{ delay: Math.min(index * 0.03, 0.4), type: 'spring', stiffness: 280, damping: 26 }}
+      whileHover={{ y: -4, transition: { type: 'spring', stiffness: 500, damping: 34 } }}
       className={[
         'glass-card group relative flex flex-col overflow-hidden rounded-2xl p-5',
-        isToday ? 'ring-1 ring-emerald-500/25' : '',
+        isToday ? 'ring-1 ring-emerald-500/20' : '',
         isStrip ? 'w-[200px] shrink-0' : '',
       ].filter(Boolean).join(' ')}
     >
-      {/* Left accent gradient bar */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-0 top-0 h-full w-[2px]"
-        style={{ background: `linear-gradient(to bottom, ${accent}cc, ${accent}22)` }}
-      />
+      {/* Left accent bar */}
+      <div aria-hidden="true" className={`pointer-events-none absolute left-0 top-0 h-full w-[2.5px] ${accentBar}`} />
 
       {/* Corner glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full opacity-[0.07] blur-2xl"
-        style={{ background: accent }}
-      />
+      <div aria-hidden="true" className={`pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full opacity-[0.07] blur-2xl ${cornerGlow}`} />
+
+      {/* Today sparkle */}
+      {isToday && (
+        <div aria-hidden="true" className="pointer-events-none absolute right-3 top-3 text-emerald-400/25">
+          <Sparkles className="h-5 w-5" />
+        </div>
+      )}
 
       {/* Icon + badge row */}
       <div className="relative mb-3 flex items-center justify-between">
@@ -68,7 +77,7 @@ export function EventCard({ event, index, variant = 'grid' }: Props) {
           <EventIcon type={type} subtype={subtype} />
         </div>
         {isToday ? (
-          <span className="rounded-full bg-gradient-to-r from-emerald-500 to-teal-500 px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest text-white">
+          <span className={`rounded-full px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest ${badgeCls}`}>
             HOY
           </span>
         ) : (

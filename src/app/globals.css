@@ -24,8 +24,7 @@
   }
 
   body {
-    /* Deep space gradient — inspired by agujero.html */
-    background: radial-gradient(ellipse at 50% 0%, #0e0e2e 0%, #07071a 50%, #020209 100%);
+    background: radial-gradient(ellipse at 60% 0%, #0d0d2b 0%, #07071a 45%, #020209 100%);
     background-attachment: fixed;
     color: #f1f5f9;
     min-height: 100svh;
@@ -41,51 +40,131 @@
 
   ::-webkit-scrollbar        { width: 5px; height: 5px; }
   ::-webkit-scrollbar-track  { background: transparent; }
-  ::-webkit-scrollbar-thumb  { background: rgba(255,255,255,0.08); border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb  { background: rgba(255,255,255,0.10); border-radius: 9999px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.18); }
 }
 
-/* ── Dot grid background utility ─────────────────────────────── */
+/* ── Dot grid background utility ────────────────────────────── */
 .dot-grid {
-  background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 
-/* ── Glassmorphism card — inspired by agujero.html .ui-panel ─── */
+/* ── Glassmorphism card ──────────────────────────────────────── */
 .glass-card {
-  background-image: linear-gradient(145deg, rgba(18,20,48,0.82), rgba(10,12,28,0.88));
-  -webkit-backdrop-filter: blur(14px) saturate(160%);
-  backdrop-filter: blur(14px) saturate(160%);
-  border: 1px solid rgba(160,165,220,0.12);
+  background-image: linear-gradient(145deg, rgba(20,22,52,0.85), rgba(10,12,30,0.92));
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(16px) saturate(180%);
+  border: 1px solid rgba(148,163,220,0.11);
   box-shadow:
-    0 8px 28px rgba(0,0,0,0.45),
-    0 0 0 1px rgba(160,165,220,0.05) inset;
-  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    0 4px 6px rgba(0,0,0,0.25),
+    0 12px 32px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(148,163,220,0.04) inset;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .glass-card:hover {
-  border-color: rgba(160,165,220,0.22);
+  border-color: rgba(148,163,220,0.22);
   box-shadow:
-    0 12px 36px rgba(0,0,0,0.5),
-    0 0 0 1px rgba(160,165,220,0.09) inset;
+    0 8px 16px rgba(0,0,0,0.3),
+    0 20px 48px rgba(0,0,0,0.55),
+    0 0 0 1px rgba(148,163,220,0.08) inset;
 }
 
-/* ── Nebula orb utilities (static gradients — avoids inline styles) ── */
+/* ── Nebula orb utilities ────────────────────────────────────── */
 .nebula-indigo { background: radial-gradient(circle, #6366f1, transparent 70%); }
 .nebula-rose   { background: radial-gradient(circle, #f43f5e, transparent 70%); }
 .nebula-amber  { background: radial-gradient(circle, #f59e0b, transparent 70%); }
 .nebula-violet { background: radial-gradient(circle, #8b5cf6, transparent 70%); }
+.nebula-teal   { background: radial-gradient(circle, #14b8a6, transparent 70%); }
+
+/* ── Live pulse dot ──────────────────────────────────────────── */
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 0 rgba(16,185,129,0.6);
+  animation: live-pulse 2s ease-out infinite;
+}
+
+/* ── EventCard accent bars ───────────────────────────────────── */
+.accent-bar-birthday { background: linear-gradient(to bottom, rgba(244,63,94,0.8), rgba(244,63,94,0.13)); }
+.accent-bar-holiday  { background: linear-gradient(to bottom, rgba(245,158,11,0.8), rgba(245,158,11,0.13)); }
+.accent-bar-today    { background: linear-gradient(to bottom, rgba(16,185,129,0.8), rgba(16,185,129,0.13)); }
+
+/* ── EventCard corner glow ───────────────────────────────────── */
+.corner-glow-birthday { background: #f43f5e; }
+.corner-glow-holiday  { background: #f59e0b; }
+.corner-glow-today    { background: #10b981; }
+
+/* ── CountdownUnit card variants ─────────────────────────────── */
+.cd-card {
+  background: rgba(255,255,255,0.032);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.07),
+    0 20px 48px -8px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+.cd-glow-rose   { background: radial-gradient(ellipse at 50% 0%, rgba(244,63,94,0.24), transparent 65%); }
+.cd-glow-amber  { background: radial-gradient(ellipse at 50% 0%, rgba(245,158,11,0.24), transparent 65%); }
+.cd-glow-indigo { background: radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.24), transparent 65%); }
+
+/* ── Hero ambient glow variants ──────────────────────────────── */
+.hero-glow-birthday {
+  background: radial-gradient(ellipse,
+    rgba(99,102,241,0.18),
+    rgba(244,63,94,0.22)  40%,
+    rgba(217,70,239,0.12) 65%,
+    transparent 80%
+  );
+}
+.hero-glow-holiday {
+  background: radial-gradient(ellipse,
+    rgba(99,102,241,0.18),
+    rgba(245,158,11,0.22) 40%,
+    rgba(251,191,36,0.10) 65%,
+    transparent 80%
+  );
+}
+.hero-glow-empty {
+  background: radial-gradient(ellipse,
+    rgba(99,102,241,0.14),
+    rgba(139,92,246,0.10) 50%,
+    transparent 80%
+  );
+}
+
+/* ── Animation utility classes ───────────────────────────────── */
+.ping-slow  { animation: ping  3s cubic-bezier(0,0,0.2,1) infinite; }
+.aurora-bar { animation: aurora 4s ease-in-out infinite; }
+
+/* ── Scrollbar hide (for horizontal strips) ──────────────────── */
+.scrollbar-hide::-webkit-scrollbar { display: none; }
+.scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* ── Custom keyframes ────────────────────────────────────────── */
 @keyframes blink {
-  0%, 100% { opacity: 0.5; }
+  0%, 100% { opacity: 0.6; }
   50%       { opacity: 0.1; }
 }
 
 @keyframes float-slow {
-  0%, 100% { transform: translateY(0px) scale(1);   }
-  50%       { transform: translateY(-18px) scale(1.04); }
+  0%, 100% { transform: translateY(0px) scale(1); }
+  50%       { transform: translateY(-16px) scale(1.03); }
 }
 
 @keyframes shimmer {
-  0%   { background-position:  200% 0; }
-  100% { background-position: -200% 0; }
+  0%   { background-position:  200% center; }
+  100% { background-position: -200% center; }
+}
+
+@keyframes live-pulse {
+  0%   { box-shadow: 0 0 0 0   rgba(16,185,129,0.7); }
+  70%  { box-shadow: 0 0 0 8px rgba(16,185,129,0);   }
+  100% { box-shadow: 0 0 0 0   rgba(16,185,129,0);   }
+}
+
+@keyframes aurora {
+  0%, 100% { opacity: 0.3; transform: scaleX(0.85); }
+  50%       { opacity: 0.6; transform: scaleX(1.15); }
 }
