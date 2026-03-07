@@ -43,10 +43,8 @@ export function EventCard({ event, index, variant = 'grid' }: Props) {
       transition={{ delay: index * 0.03, type: 'spring', stiffness: 300, damping: 28 }}
       whileHover={{ y: -3, transition: { type: 'spring', stiffness: 500, damping: 32 } }}
       className={[
-        'group relative flex flex-col overflow-hidden rounded-2xl p-5',
-        'border border-white/[0.06] bg-white/[0.025] backdrop-blur-sm',
-        'transition-colors hover:border-white/[0.12] hover:bg-white/[0.04]',
-        isToday ? 'ring-1 ring-emerald-500/20' : '',
+        'glass-card group relative flex flex-col overflow-hidden rounded-2xl p-5',
+        isToday ? 'ring-1 ring-emerald-500/25' : '',
         isStrip ? 'w-[200px] shrink-0' : '',
       ].filter(Boolean).join(' ')}
     >

@@ -20,7 +20,7 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 bg-[#060612]/75 backdrop-blur-2xl">
+    <header className="sticky top-0 z-50 bg-[#07071a]/70 backdrop-blur-2xl">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-8 flex items-center justify-between h-16">
 
         {/* Brand */}
@@ -39,7 +39,8 @@ export function Header() {
         </time>
 
       </div>
-      <div className="h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent" />
+      {/* Aurora border */}
+      <div className="h-px bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent" />
     </header>
   );
 }
