@@ -33,13 +33,12 @@ jobs:
       - name: Build Next.js static export
         run: npm run build
         env:
-          # Public anon keys — safe to embed. Override via GitHub Variables if rotated.
-          NEXT_PUBLIC_SUPABASE_URL:      ${{ vars.NEXT_PUBLIC_SUPABASE_URL      || 'https://dnzzqjrmyyvukeadsxei.supabase.co' }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenpxanJteXl2dWtlYWRzeGVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MjU3MDEsImV4cCI6MjA4ODQwMTcwMX0.rgWNOBGecWOBR17EDQiYDQ6ECuj5JZHKXSrfXt5VZxg' }}
-          # Auto-detects /repo-name from the GitHub repository name.
-          # Override by setting NEXT_PUBLIC_BASE_PATH in GitHub → Settings → Variables
-          # (e.g. '' for a custom domain, or '/otro-nombre' for a different path)
-          NEXT_PUBLIC_BASE_PATH: ${{ vars.NEXT_PUBLIC_BASE_PATH || format('/{0}', github.event.repository.name) }}
+          # NEXT_PUBLIC_ values are embedded in the browser bundle at build time.
+          # They are intentionally public (anon key, not secret key).
+          NEXT_PUBLIC_SUPABASE_URL: 'https://dnzzqjrmyyvukeadsxei.supabase.co'
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenpxanJteXl2dWtlYWRzeGVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MjU3MDEsImV4cCI6MjA4ODQwMTcwMX0.rgWNOBGecWOBR17EDQiYDQ6ECuj5JZHKXSrfXt5VZxg'
+          # basePath = /NOMBRE-DEL-REPO para GitHub Pages, '' para dominio propio
+          NEXT_PUBLIC_BASE_PATH: ${{ format('/{0}', github.event.repository.name) }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
