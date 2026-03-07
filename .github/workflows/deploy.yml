@@ -33,8 +33,9 @@ jobs:
       - name: Build Next.js static export
         run: npm run build
         env:
-          NEXT_PUBLIC_SUPABASE_URL:      ${{ vars.NEXT_PUBLIC_SUPABASE_URL }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY }}
+          # Public anon keys — safe to embed. Override via GitHub Variables if rotated.
+          NEXT_PUBLIC_SUPABASE_URL:      ${{ vars.NEXT_PUBLIC_SUPABASE_URL      || 'https://dnzzqjrmyyvukeadsxei.supabase.co' }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_GFPo6O_15Ksls0DHQLhlJA_SGLOy7SFsb_publishable_Bo-R91ajV2EY5SjF4Anl5A_V9ESikl6' }}
           # Auto-detects /repo-name from the GitHub repository name.
           # Override by setting NEXT_PUBLIC_BASE_PATH in GitHub → Settings → Variables
           # (e.g. '' for a custom domain, or '/otro-nombre' for a different path)
