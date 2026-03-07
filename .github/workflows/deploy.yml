@@ -35,7 +35,7 @@ jobs:
         env:
           # Public anon keys — safe to embed. Override via GitHub Variables if rotated.
           NEXT_PUBLIC_SUPABASE_URL:      ${{ vars.NEXT_PUBLIC_SUPABASE_URL      || 'https://dnzzqjrmyyvukeadsxei.supabase.co' }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_GFPo6O_15Ksls0DHQLhlJA_SGLOy7SFsb_publishable_Bo-R91ajV2EY5SjF4Anl5A_V9ESikl6' }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ vars.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenpxanJteXl2dWtlYWRzeGVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MjU3MDEsImV4cCI6MjA4ODQwMTcwMX0.rgWNOBGecWOBR17EDQiYDQ6ECuj5JZHKXSrfXt5VZxg' }}
           # Auto-detects /repo-name from the GitHub repository name.
           # Override by setting NEXT_PUBLIC_BASE_PATH in GitHub → Settings → Variables
           # (e.g. '' for a custom domain, or '/otro-nombre' for a different path)
