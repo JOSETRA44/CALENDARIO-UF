@@ -30,15 +30,28 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Detect repository name
+        id: repo-name
+        run: |
+          REPO_NAME="${{ github.event.repository.name }}"
+          echo "name=$REPO_NAME" >> $GITHUB_OUTPUT
+          # Use '/REPO_NAME' if deploying to user/org pages with custom domain, use '/' for username.github.io
+          # For now using /{REPO_NAME} for project pages
+          echo "base-path=/$REPO_NAME" >> $GITHUB_OUTPUT
+
       - name: Build Next.js static export
         run: npm run build
         env:
           # NEXT_PUBLIC_ values are embedded in the browser bundle at build time.
           # They are intentionally public (anon key, not secret key).
-          NEXT_PUBLIC_SUPABASE_URL: 'https://dnzzqjrmyyvukeadsxei.supabase.co'
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenpxanJteXl2dWtlYWRzeGVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MjU3MDEsImV4cCI6MjA4ODQwMTcwMX0.rgWNOBGecWOBR17EDQiYDQ6ECuj5JZHKXSrfXt5VZxg'
-          # basePath = /NOMBRE-DEL-REPO para GitHub Pages, '' para dominio propio
-          NEXT_PUBLIC_BASE_PATH: ${{ format('/{0}', github.event.repository.name) }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'https://dnzzqjrmyyvukeadsxei.supabase.co' }}
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenpxanJteXl2dWtlYWRzeGVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MjU3MDEsImV4cCI6MjA4ODQwMTcwMX0.rgWNOBGecWOBR17EDQiYDQ6ECuj5JZHKXSrfXt5VZxg' }}
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.repo-name.outputs.base-path }}
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
+        with:
+          static_site_generator: next
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
@@ -55,3 +68,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+

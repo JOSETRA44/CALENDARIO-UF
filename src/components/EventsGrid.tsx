@@ -70,7 +70,7 @@ export function EventsGrid({ events, loading, error }: Props) {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ type: 'spring', stiffness: 280, damping: 28 }}
+            transition={{ type: 'spring', stiffness: 350, damping: 35 }} // Optimized
           >
             <h2 className="bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100 bg-clip-text text-2xl sm:text-3xl font-black tracking-tight text-transparent">
               Todos los Eventos

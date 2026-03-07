@@ -38,7 +38,7 @@ export function UpcomingStrip({ events, loading }: Props) {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ type: 'spring', stiffness: 280, damping: 28 }}
+            transition={{ type: 'spring', stiffness: 350, damping: 35 }} // Optimized spring
             className="bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100 bg-clip-text text-xl sm:text-2xl font-black tracking-tight text-transparent"
           >
             Próximos Eventos
@@ -53,7 +53,7 @@ export function UpcomingStrip({ events, loading }: Props) {
               Desliza
               <motion.div
                 animate={{ x: [0, 4, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                transition={{ duration: 3, repeat: Infinity }}
               >
                 <ChevronRight className="h-4 w-4" aria-hidden="true" />
               </motion.div>

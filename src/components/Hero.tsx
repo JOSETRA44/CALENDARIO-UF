@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { motion, type Variants } from 'framer-motion';
 import { Cake, Flag, CalendarDays, Sparkles } from 'lucide-react';
 import { CountdownUnit, CountdownSep } from './CountdownUnit';
@@ -14,7 +15,7 @@ interface Props {
 
 const container: Variants = {
   hidden: {},
-  show:   { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
+  show:   { transition: { staggerChildren: 0.04, delayChildren: 0.05 } }, // Reduced from 0.08, 0.1
 };
 
 const item: Variants = {
@@ -24,15 +25,20 @@ const item: Variants = {
     y: 0, 
     transition: { 
       type: 'spring', 
-      stiffness: 300, 
-      damping: 32,
-      mass: 0.5
+      stiffness: 400,  // Increased from 300 for snappier feel
+      damping: 40,     // Increased from 32 for less bounce
+      mass: 0.4        // Decreased from 0.5 for faster response
     } 
   },
 };
 
 export function Hero({ nextEvent, loading }: Props) {
+  const [mounted, setMounted] = useState(false);
   const cd = useCountdown(nextEvent?.nextDate ?? null);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
   const isBirthday = nextEvent?.type === 'birthday';
 
   const nameGradient = isBirthday
@@ -75,7 +81,7 @@ export function Hero({ nextEvent, loading }: Props) {
         animate="show"
       >
         {/* Event-type badge */}
-        <motion.div variants={item}>
+        <motion.div variants={item} className="opacity-0 animate-fade-in-up">
           {isToday ? (
             <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 px-5 py-1.5 text-[11px] font-black uppercase tracking-widest text-emerald-300">
               <Sparkles className="h-3 w-3" aria-hidden="true" />
@@ -130,24 +136,26 @@ export function Hero({ nextEvent, loading }: Props) {
         <motion.div variants={item} className="h-px w-32 bg-gradient-to-r from-transparent via-slate-700 to-transparent" aria-hidden="true" />
 
         {/* Countdown */}
-        <motion.div
-          variants={item}
-          className="flex items-center gap-2 sm:gap-4"
-          aria-label="Cuenta regresiva"
-          aria-live="polite"
-          aria-atomic="true"
-        >
-          <CountdownUnit value={cd.days}    label="Días"   color={cdColor} />
-          <CountdownSep />
-          <CountdownUnit value={cd.hours}   label="Horas"  color={cdColor} />
-          <CountdownSep />
-          <CountdownUnit value={cd.minutes} label="Min"    color={cdColor} />
-          <CountdownSep />
-          <CountdownUnit value={cd.seconds} label="Seg"    color={cdColor} />
-        </motion.div>
+        {mounted && (
+          <motion.div
+            variants={item}
+            className="flex items-center gap-2 sm:gap-4"
+            aria-label="Cuenta regresiva"
+            aria-live="polite"
+            aria-atomic="true"
+          >
+            <CountdownUnit value={cd.days}    label="Días"   color={cdColor} />
+            <CountdownSep />
+            <CountdownUnit value={cd.hours}   label="Horas"  color={cdColor} />
+            <CountdownSep />
+            <CountdownUnit value={cd.minutes} label="Min"    color={cdColor} />
+            <CountdownSep />
+            <CountdownUnit value={cd.seconds} label="Seg"    color={cdColor} />
+          </motion.div>
+        )}
 
         {/* Subtle scroll hint */}
-        {!loading && nextEvent && (
+        {mounted && !loading && nextEvent && (
           <motion.div
             variants={item}
             className="mt-2 flex flex-col items-center gap-1.5 opacity-30"

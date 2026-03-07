@@ -25,6 +25,9 @@ export function Particles() {
     let raf: number;
     let stars: Star[] = [];
     let t = 0;
+    let lastFrameTime = 0;
+    const targetFPS = 30; // Reduced from 60 to 30
+    const frameInterval = 1000 / targetFPS;
 
     function resize() {
       canvas!.width  = window.innerWidth;
@@ -32,66 +35,68 @@ export function Particles() {
     }
 
     function makeStar(): Star {
-      const bright = Math.random() > 0.68;
+      const bright = Math.random() > 0.75; // Reduced bright stars from 0.68 to 0.75
       return {
         x:     Math.random() * canvas!.width,
         y:     Math.random() * canvas!.height,
-        r:     bright ? Math.random() * 1.6 + 0.8 : Math.random() * 0.8 + 0.2,
-        vx:    (Math.random() - 0.5) * 0.12,
-        vy:    (Math.random() - 0.5) * 0.12,
+        r:     bright ? Math.random() * 1.4 + 0.6 : Math.random() * 0.6 + 0.15,
+        vx:    (Math.random() - 0.5) * 0.08, // Reduced movement speed
+        vy:    (Math.random() - 0.5) * 0.08,
         hue:   HUES[Math.floor(Math.random() * HUES.length)],
         phase: Math.random() * Math.PI * 2,
-        speed: Math.random() * 1.4 + 0.5,
-        maxA:  bright ? Math.random() * 0.65 + 0.25 : Math.random() * 0.35 + 0.08,
+        speed: Math.random() * 1.2 + 0.4, // Reduced twinkle speed
+        maxA:  bright ? Math.random() * 0.55 + 0.15 : Math.random() * 0.25 + 0.05, // Reduced alpha
         bright,
       };
     }
 
-    function tick() {
-      t += 0.013;
+    function tick(currentTime: number) {
+      if (currentTime - lastFrameTime < frameInterval) {
+        raf = requestAnimationFrame(tick);
+        return;
+      }
+      lastFrameTime = currentTime;
+
+      t += 0.016;
       ctx.clearRect(0, 0, canvas!.width, canvas!.height);
-      ctx.filter = 'blur(0.5px)';
 
       for (const s of stars) {
-        const alpha = s.maxA * (0.3 + 0.7 * (Math.sin(t * s.speed + s.phase) * 0.5 + 0.5));
+        const alpha = s.maxA * (0.4 + 0.6 * Math.sin(t * s.speed + s.phase));
 
-        // Enhanced radial glow halo for bright stars
-        if (s.bright) {
-          const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 8);
-          g.addColorStop(0, `hsla(${s.hue},92%,85%,${alpha * 0.55})`);
-          g.addColorStop(0.5, `hsla(${s.hue},88%,80%,${alpha * 0.25})`);
+        // Minimal glow only for bright stars
+        if (s.bright && alpha > 0.15) {
+          const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 4);
+          g.addColorStop(0, `hsla(${s.hue},90%,85%,${alpha * 0.25})`);
           g.addColorStop(1, 'transparent');
           ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r * 8, 0, Math.PI * 2);
+          ctx.arc(s.x, s.y, s.r * 4, 0, Math.PI * 2);
           ctx.fillStyle = g;
           ctx.fill();
         }
 
-        // Core dot with glow
-        const coreSat = s.bright ? 95 : 85;
-        const coreLum = s.bright ? 90 : 88;
+        // Core dot
+        ctx.fillStyle = `hsla(${s.hue},85%,88%,${alpha})`;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${s.hue},${coreSat}%,${coreLum}%,${alpha})`;
         ctx.fill();
 
         s.x = (s.x + s.vx + canvas!.width)  % canvas!.width;
         s.y = (s.y + s.vy + canvas!.height) % canvas!.height;
       }
 
-      ctx.filter = 'none';
       raf = requestAnimationFrame(tick);
     }
 
     function init() {
       resize();
-      stars = Array.from({ length: 240 }, makeStar);
-      tick();
+      // Reduced to 60 stars (from 120)
+      stars = Array.from({ length: 60 }, makeStar);
+      raf = requestAnimationFrame(tick);
     }
 
     init();
 
-    const onResize = () => { resize(); stars = Array.from({ length: 240 }, makeStar); };
+    const onResize = () => { resize(); stars = Array.from({ length: 60 }, makeStar); };
     window.addEventListener('resize', onResize, { passive: true });
 
     return () => {

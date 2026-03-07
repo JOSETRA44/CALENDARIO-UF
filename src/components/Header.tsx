@@ -1,24 +1,55 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { CalendarDays } from 'lucide-react';
+import { supabase } from '@/lib/supabase';
 
 export function Header() {
+  const [mounted, setMounted] = useState(false);
   const [dateStr, setDateStr] = useState('');
   const [timeStr, setTimeStr] = useState('');
+  const serverTimeOffsetRef = useRef<number>(0);
+  const rafRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
-    function update() {
-      const now = new Date();
+    setMounted(true);
+
+    // Get server time offset to counter client clock manipulation
+    const initServerTimeOffset = async () => {
+      try {
+        const { data } = await supabase.from('cumpleanios').select('created_at').limit(1);
+        if (data && data.length > 0) {
+          const serverTime = new Date(data[0].created_at).getTime();
+          const clientTime = Date.now();
+          serverTimeOffsetRef.current = serverTime - clientTime;
+        }
+      } catch (error) {
+        console.error('[Header] Failed to get server time:', error);
+      }
+    };
+
+    initServerTimeOffset();
+
+    // Use requestAnimationFrame for smooth updates without setInterval
+    const update = () => {
+      const clientNow = Date.now();
+      const serverNow = clientNow + serverTimeOffsetRef.current;
+      const now = new Date(serverNow);
+      
       const d = now.toLocaleDateString('es-CL', {
         weekday: 'long', day: 'numeric', month: 'long',
       });
       setDateStr(d.charAt(0).toUpperCase() + d.slice(1));
-      setTimeStr(now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit' }));
-    }
-    update();
-    const id = setInterval(update, 1000);
-    return () => clearInterval(id);
+      setTimeStr(now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
+      
+      rafRef.current = requestAnimationFrame(update);
+    };
+
+    rafRef.current = requestAnimationFrame(update);
+    
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
   return (
@@ -60,7 +91,7 @@ export function Header() {
             <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-400/80">En vivo</span>
           </div>
 
-          {dateStr && (
+          {mounted && dateStr && (
             <time
               className="hidden md:flex items-center gap-2.5 text-xs font-medium text-slate-400 border-l border-slate-700/50 pl-4"
               aria-label="Fecha y hora actuales"

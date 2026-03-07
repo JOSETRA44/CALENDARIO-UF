@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo, memo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 type AccentColor = 'rose' | 'amber' | 'indigo';
@@ -16,8 +17,8 @@ const glowCls: Record<AccentColor, string> = {
   indigo: 'cd-glow-indigo',
 };
 
-export function CountdownUnit({ value, label, color = 'indigo' }: Props) {
-  const formatted = String(value).padStart(2, '0');
+function CountdownUnitComponent({ value, label, color = 'indigo' }: Props) {
+  const formatted = useMemo(() => String(value).padStart(2, '0'), [value]);
 
   return (
     <div className="flex flex-col items-center gap-3">
@@ -60,6 +61,9 @@ export function CountdownUnit({ value, label, color = 'indigo' }: Props) {
     </div>
   );
 }
+
+// Memoize to prevent re-renders when parent updates
+export const CountdownUnit = memo(CountdownUnitComponent);
 
 export function CountdownSep() {
   return (

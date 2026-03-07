@@ -22,7 +22,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es" className={inter.variable}>
+    <html lang="es" className={inter.variable} suppressHydrationWarning>
       <body suppressHydrationWarning style={{ fontFamily: 'var(--font-inter), ui-sans-serif, system-ui, sans-serif' }}>
         {children}
       </body>

@@ -12,8 +12,10 @@ export function useCountdown(targetDate: Date | null): Countdown {
   useEffect(() => {
     if (!targetDate) { setCd(ZERO); return; }
 
+    const target = targetDate; // Ensure TypeScript knows this is Date, not Date | null
+
     function tick() {
-      setCd(decompose(msUntil(targetDate!)));
+      setCd(decompose(msUntil(target)));
     }
 
     tick();
