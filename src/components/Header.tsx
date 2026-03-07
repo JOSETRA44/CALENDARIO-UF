@@ -23,40 +23,50 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-[#07071a]/80 backdrop-blur-2xl" aria-hidden="true" />
+      {/* Backdrop with enhanced blur */}
+      <div 
+        className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-purple-950/20 backdrop-blur-xl" 
+        aria-hidden="true" 
+      />
+      <div 
+        className="absolute inset-0 bg-[#050514]/70 backdrop-blur-2xl" 
+        aria-hidden="true" 
+      />
 
-      <div className="relative mx-auto max-w-screen-xl px-4 sm:px-8 flex items-center justify-between h-16">
+      <div className="relative mx-auto max-w-screen-2xl px-4 sm:px-8 lg:px-12 flex items-center justify-between h-16">
         {/* Brand */}
-        <div className="flex items-center gap-3">
-          <div className="relative flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 shadow-lg shadow-indigo-500/30">
-            <CalendarDays className="h-4 w-4 text-white" aria-hidden="true" />
+        <div className="flex items-center gap-3.5">
+          <div className="group relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 shadow-lg shadow-indigo-500/40 transition-all duration-300 hover:shadow-indigo-500/60">
+            <CalendarDays className="h-5 w-5 text-white transition-transform group-hover:scale-110" aria-hidden="true" />
             <span
-              className="absolute inset-0 rounded-xl ring-1 ring-indigo-400/40 ping-slow"
+              className="absolute inset-0 rounded-xl ring-1 ring-indigo-300/60 ping-slow"
               aria-hidden="true"
             />
           </div>
           <div className="flex flex-col leading-tight">
-            <span className="text-sm font-black tracking-tight text-slate-100">Calendario UF</span>
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-indigo-400/60">Chile · Eventos</span>
+            <span className="bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-sm font-black tracking-tight text-transparent">
+              Calendario UF
+            </span>
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-indigo-400/70">
+              Chile · Eventos
+            </span>
           </div>
         </div>
 
         {/* Right: live indicator + date/time */}
-        <div className="flex items-center gap-4">
-          <div className="hidden sm:flex items-center gap-2" aria-label="Actualización en tiempo real">
+        <div className="flex items-center gap-4 md:gap-6">
+          <div className="hidden sm:flex items-center gap-2.5" aria-label="Actualización en tiempo real">
             <span className="live-dot" aria-hidden="true" />
-            <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-500/70">En vivo</span>
+            <span className="text-[10px] font-bold uppercase tracking-widest text-emerald-400/80">En vivo</span>
           </div>
 
           {dateStr && (
             <time
-              className="hidden md:flex items-center gap-2 text-xs font-medium text-slate-500"
+              className="hidden md:flex items-center gap-2.5 text-xs font-medium text-slate-400 border-l border-slate-700/50 pl-4"
               aria-label="Fecha y hora actuales"
             >
-              <span>{dateStr}</span>
-              <span className="text-slate-700" aria-hidden="true">·</span>
-              <span className="font-mono tabular-nums text-slate-400">{timeStr}</span>
+              <span className="text-slate-300">{dateStr}</span>
+              <span className="font-mono tabular-nums text-slate-500">{timeStr}</span>
             </time>
           )}
         </div>
@@ -65,7 +75,7 @@ export function Header() {
       {/* Aurora animated border */}
       <div className="relative h-px overflow-hidden" aria-hidden="true">
         <div
-          className="absolute inset-0 bg-gradient-to-r from-transparent via-indigo-500/55 to-transparent aurora-bar"
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-indigo-500/50 via-purple-500/40 to-transparent aurora-bar"
         />
       </div>
     </header>

@@ -28,12 +28,12 @@ export function EventCard({ event, index, variant = 'grid' }: Props) {
   const text = labelCountdown(cd, isToday);
 
   const iconCls = isBirthday
-    ? 'bg-rose-500/15 text-rose-400 ring-1 ring-rose-500/20'
-    : 'bg-amber-500/15 text-amber-400 ring-1 ring-amber-500/20';
+    ? 'bg-gradient-to-br from-rose-500/25 to-pink-500/15 text-rose-300 ring-1 ring-rose-500/30'
+    : 'bg-gradient-to-br from-amber-500/25 to-yellow-500/15 text-amber-300 ring-1 ring-amber-500/30';
 
   const badgeCls = isToday
-    ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white'
-    : isBirthday ? 'text-rose-400' : 'text-amber-400';
+    ? 'bg-gradient-to-r from-emerald-500/30 to-teal-500/20 text-emerald-200 border border-emerald-500/30'
+    : isBirthday ? 'text-rose-300 font-semibold' : 'text-amber-300 font-semibold';
 
   const footerCls = isToday     ? 'text-emerald-400'
                   : cd.days < 1 ? 'text-rose-400'
@@ -47,14 +47,14 @@ export function EventCard({ event, index, variant = 'grid' }: Props) {
     <motion.article
       role="listitem"
       layout
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0  }}
-      exit={{    opacity: 0, scale: 0.95 }}
-      transition={{ delay: Math.min(index * 0.03, 0.4), type: 'spring', stiffness: 280, damping: 26 }}
-      whileHover={{ y: -4, transition: { type: 'spring', stiffness: 500, damping: 34 } }}
+      initial={{ opacity: 0, y: 24, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      exit={{    opacity: 0, scale: 0.92, y: -8 }}
+      transition={{ delay: Math.min(index * 0.04, 0.5), type: 'spring', stiffness: 320, damping: 28 }}
+      whileHover={{ y: -6, transition: { type: 'spring', stiffness: 550, damping: 35 } }}
       className={[
-        'glass-card group relative flex flex-col overflow-hidden rounded-2xl p-5',
-        isToday ? 'ring-1 ring-emerald-500/20' : '',
+        'glass-card group relative flex flex-col overflow-hidden rounded-2xl p-5 sm:p-6',
+        isToday ? 'ring-1 ring-emerald-500/30' : 'hover:ring-1 hover:ring-slate-400/20',
         isStrip ? 'w-[200px] shrink-0' : '',
       ].filter(Boolean).join(' ')}
     >
@@ -77,11 +77,12 @@ export function EventCard({ event, index, variant = 'grid' }: Props) {
           <EventIcon type={type} subtype={subtype} />
         </div>
         {isToday ? (
-          <span className={`rounded-full px-2.5 py-0.5 text-[9px] font-black uppercase tracking-widest ${badgeCls}`}>
+          <span className={`inline-flex items-center gap-1 rounded-full px-3 py-1 text-[9px] font-black uppercase tracking-widest ${badgeCls}`}>
+            <Sparkles className="h-3 w-3" aria-hidden="true" />
             HOY
           </span>
         ) : (
-          <span className={`text-[10px] font-bold uppercase tracking-widest ${badgeCls}`}>
+          <span className={`inline-block rounded-lg px-2.5 py-1 text-[9px] font-bold uppercase tracking-wider ${badgeCls}`}>
             {isBirthday ? 'Cumple' : (subtype ?? 'Festivo')}
           </span>
         )}

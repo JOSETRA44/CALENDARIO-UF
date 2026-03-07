@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 
 // Inspired by agujero.html color palette: blues, indigo, violet, pink, amber
-const HUES = [220, 235, 250, 268, 285, 310, 325, 35];
+const HUES = [200, 220, 240, 260, 280, 300, 320, 340, 35];
 
 interface Star {
   x: number; y: number;
@@ -32,17 +32,17 @@ export function Particles() {
     }
 
     function makeStar(): Star {
-      const bright = Math.random() > 0.72;
+      const bright = Math.random() > 0.68;
       return {
         x:     Math.random() * canvas!.width,
         y:     Math.random() * canvas!.height,
-        r:     bright ? Math.random() * 1.4 + 0.7 : Math.random() * 0.7 + 0.15,
-        vx:    (Math.random() - 0.5) * 0.15,
-        vy:    (Math.random() - 0.5) * 0.15,
+        r:     bright ? Math.random() * 1.6 + 0.8 : Math.random() * 0.8 + 0.2,
+        vx:    (Math.random() - 0.5) * 0.12,
+        vy:    (Math.random() - 0.5) * 0.12,
         hue:   HUES[Math.floor(Math.random() * HUES.length)],
         phase: Math.random() * Math.PI * 2,
-        speed: Math.random() * 1.2 + 0.4,
-        maxA:  bright ? Math.random() * 0.55 + 0.2 : Math.random() * 0.25 + 0.05,
+        speed: Math.random() * 1.4 + 0.5,
+        maxA:  bright ? Math.random() * 0.65 + 0.25 : Math.random() * 0.35 + 0.08,
         bright,
       };
     }
@@ -50,31 +50,36 @@ export function Particles() {
     function tick() {
       t += 0.013;
       ctx.clearRect(0, 0, canvas!.width, canvas!.height);
+      ctx.filter = 'blur(0.5px)';
 
       for (const s of stars) {
-        const alpha = s.maxA * (0.25 + 0.75 * (Math.sin(t * s.speed + s.phase) * 0.5 + 0.5));
+        const alpha = s.maxA * (0.3 + 0.7 * (Math.sin(t * s.speed + s.phase) * 0.5 + 0.5));
 
-        // Radial glow halo for bright stars
+        // Enhanced radial glow halo for bright stars
         if (s.bright) {
-          const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 6);
-          g.addColorStop(0, `hsla(${s.hue},90%,82%,${alpha * 0.45})`);
+          const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 8);
+          g.addColorStop(0, `hsla(${s.hue},92%,85%,${alpha * 0.55})`);
+          g.addColorStop(0.5, `hsla(${s.hue},88%,80%,${alpha * 0.25})`);
           g.addColorStop(1, 'transparent');
           ctx.beginPath();
-          ctx.arc(s.x, s.y, s.r * 6, 0, Math.PI * 2);
+          ctx.arc(s.x, s.y, s.r * 8, 0, Math.PI * 2);
           ctx.fillStyle = g;
           ctx.fill();
         }
 
-        // Core dot
+        // Core dot with glow
+        const coreSat = s.bright ? 95 : 85;
+        const coreLum = s.bright ? 90 : 88;
         ctx.beginPath();
         ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `hsla(${s.hue},85%,88%,${alpha})`;
+        ctx.fillStyle = `hsla(${s.hue},${coreSat}%,${coreLum}%,${alpha})`;
         ctx.fill();
 
         s.x = (s.x + s.vx + canvas!.width)  % canvas!.width;
         s.y = (s.y + s.vy + canvas!.height) % canvas!.height;
       }
 
+      ctx.filter = 'none';
       raf = requestAnimationFrame(tick);
     }
 

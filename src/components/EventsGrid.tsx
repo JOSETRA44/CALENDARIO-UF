@@ -21,15 +21,16 @@ const TABS: Tab[] = [
 
 function SkeletonCard() {
   return (
-    <div className="glass-card rounded-2xl p-5 flex flex-col gap-3 min-h-[168px]">
+    <div className="glass-card rounded-2xl p-5 sm:p-6 flex flex-col gap-3 min-h-[180px] sm:min-h-[200px]">
       <div className="flex items-center justify-between">
-        <div className="h-8 w-8 rounded-xl bg-white/[0.05] animate-pulse" />
-        <div className="h-4 w-14 rounded-full bg-white/[0.04] animate-pulse" />
+        <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-white/[0.08] to-white/[0.03] animate-pulse" />
+        <div className="h-4 w-16 rounded-lg bg-gradient-to-r from-white/[0.06] to-white/[0.02] animate-pulse" />
       </div>
-      <div className="h-3 w-3/4 rounded-lg bg-white/[0.05] animate-pulse mt-1" />
-      <div className="h-2.5 w-1/2 rounded-lg bg-white/[0.04] animate-pulse" />
-      <div className="mt-auto h-px w-full bg-white/[0.04]" />
-      <div className="h-2.5 w-2/5 rounded-lg bg-white/[0.03] animate-pulse" />
+      <div className="h-3 w-5/6 rounded-lg bg-gradient-to-r from-white/[0.08] to-white/[0.03] animate-pulse mt-1" />
+      <div className="h-2.5 w-4/5 rounded-lg bg-gradient-to-r from-white/[0.06] to-white/[0.02] animate-pulse" />
+      <div className="h-2 w-3/4 rounded-lg bg-gradient-to-r from-white/[0.04] to-white/[0.01] animate-pulse" />
+      <div className="mt-auto h-px w-full bg-white/[0.05]" />
+      <div className="h-2.5 w-2/5 rounded-lg bg-gradient-to-r from-white/[0.05] to-white/[0.01] animate-pulse" />
     </div>
   );
 }
@@ -60,30 +61,30 @@ export function EventsGrid({ events, loading, error }: Props) {
   }, [events, tab, query]);
 
   return (
-    <section className="relative z-10 border-t border-white/[0.05] py-14 pb-28">
-      <div className="mx-auto max-w-screen-xl px-4 sm:px-8">
+    <section className="relative z-10 border-t border-white/[0.05] py-16 pb-32">
+      <div className="relative mx-auto max-w-screen-2xl px-4 sm:px-8 lg:px-12">
 
         {/* Header row */}
-        <div className="mb-8 flex flex-wrap items-center justify-between gap-4">
+        <div className="mb-10 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
           <motion.div
-            initial={{ opacity: 0, x: -14 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ type: 'spring', stiffness: 260, damping: 24 }}
+            transition={{ type: 'spring', stiffness: 280, damping: 28 }}
           >
-            <h2 className="text-xl font-black tracking-tight text-slate-100">
+            <h2 className="bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100 bg-clip-text text-2xl sm:text-3xl font-black tracking-tight text-transparent">
               Todos los Eventos
             </h2>
             {!loading && (
-              <p className="mt-0.5 text-xs text-slate-600">
-                {counts.todos} eventos · {counts.cumpleanos} cumpleaños · {counts.festivos} festivos
+              <p className="mt-1 text-sm text-slate-500">
+                <span className="font-semibold text-slate-400">{counts.todos}</span> eventos totales · <span className="font-semibold text-rose-400/80">{counts.cumpleanos}</span> cumpleaños · <span className="font-semibold text-amber-400/80">{counts.festivos}</span> festivos
               </p>
             )}
           </motion.div>
 
           {/* Search */}
-          <div className="relative flex items-center" role="search">
-            <Search className="pointer-events-none absolute left-3 h-3.5 w-3.5 text-slate-600" aria-hidden="true" />
+          <div className="relative flex items-center w-full sm:w-auto" role="search">
+            <Search className="pointer-events-none absolute left-3 h-4 w-4 text-slate-600" aria-hidden="true" />
             <input
               type="search"
               value={query}
@@ -91,98 +92,115 @@ export function EventsGrid({ events, loading, error }: Props) {
               placeholder="Buscar evento…"
               aria-label="Buscar evento"
               autoComplete="off"
-              className="h-9 w-52 rounded-xl border border-white/[0.07] bg-white/[0.03] pl-9 pr-9 text-sm text-slate-300 placeholder-slate-700 outline-none transition focus:border-indigo-500/40 focus:bg-white/[0.05] focus:ring-1 focus:ring-indigo-500/20"
+              className="w-full sm:w-56 h-10 rounded-xl border border-white/[0.08] bg-gradient-to-b from-white/[0.06] to-white/[0.02] pl-10 pr-10 text-sm text-slate-300 placeholder-slate-600 outline-none transition-all focus:border-indigo-500/40 focus:bg-white/[0.08] focus:ring-1 focus:ring-indigo-500/30"
             />
             {query && (
               <button
                 onClick={() => setQuery('')}
                 aria-label="Limpiar búsqueda"
                 type="button"
-                className="absolute right-2.5 flex h-5 w-5 items-center justify-center rounded-full bg-white/[0.07] text-slate-500 transition hover:bg-white/[0.12] hover:text-slate-300"
+                className="absolute right-2.5 flex h-6 w-6 items-center justify-center rounded-full bg-white/[0.08] text-slate-500 transition hover:bg-white/[0.15] hover:text-slate-300"
               >
-                <X className="h-3 w-3" />
+                <X className="h-3.5 w-3.5" />
               </button>
             )}
           </div>
         </div>
 
         {/* Tabs */}
-        <div className="mb-8 flex flex-wrap gap-2" role="tablist" aria-label="Filtrar por tipo de evento">
+        <div className="mb-10 flex flex-wrap gap-3">
           {TABS.map(t => {
             const active = tab === t.id;
             const count  = counts[t.id];
             return (
-              <button
+              <motion.button
                 key={t.id}
                 type="button"
-                role="tab"
-                aria-selected={active ? true : false}
                 onClick={() => setTab(t.id)}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 className={[
-                  'inline-flex items-center gap-2 rounded-xl border px-4 py-2 text-sm font-semibold transition-all duration-200',
+                  'inline-flex items-center gap-2.5 rounded-xl border px-5 py-2.5 text-sm font-semibold transition-all duration-250',
                   active
-                    ? 'border-transparent bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-500/20'
-                    : 'border-white/[0.07] bg-white/[0.02] text-slate-500 hover:border-indigo-500/20 hover:bg-white/[0.05] hover:text-slate-300',
+                    ? 'border-transparent bg-gradient-to-r from-indigo-500 to-violet-600 text-white shadow-lg shadow-indigo-500/25'
+                    : 'border-white/[0.08] bg-white/[0.03] text-slate-400 hover:border-indigo-500/25 hover:bg-white/[0.06] hover:text-slate-300',
                 ].join(' ')}
+                aria-pressed={active}
               >
-                {t.Icon && <t.Icon className="h-3.5 w-3.5" aria-hidden="true" />}
+                {t.Icon && <t.Icon className="h-4 w-4" aria-hidden="true" />}
                 {t.label}
                 {!loading && (
-                  <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold tabular-nums ${active ? 'bg-white/20 text-white' : 'bg-white/[0.05] text-slate-600'}`}>
+                  <motion.span 
+                    initial={false}
+                    animate={{ scale: 1 }}
+                    className={`rounded-full px-2 py-0.5 text-[10px] font-bold tabular-nums ${active ? 'bg-white/25 text-white' : 'bg-white/[0.08] text-slate-500'}`}
+                  >
                     {count}
-                  </span>
+                  </motion.span>
                 )}
-              </button>
+              </motion.button>
             );
           })}
         </div>
 
         {/* Error */}
         {error && (
-          <div className="mb-6 rounded-xl border border-red-500/20 bg-red-500/[0.06] px-5 py-4 text-sm text-red-400">
+          <motion.div
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8 rounded-xl border border-red-500/20 bg-gradient-to-r from-red-500/[0.08] to-red-500/[0.04] px-6 py-4 text-sm text-red-300 backdrop-blur-sm"
+          >
             {error}
-          </div>
+          </motion.div>
         )}
 
         {/* Grid */}
         {loading ? (
-          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {Array.from({ length: 8 }, (_, i) => <SkeletonCard key={i} />)}
           </div>
         ) : filtered.length === 0 ? (
           <motion.div
-            initial={{ opacity: 0, scale: 0.96 }}
+            initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex flex-col items-center gap-4 py-24 text-center"
+            className="flex flex-col items-center gap-6 py-32 text-center"
             aria-live="polite"
           >
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/[0.03] border border-white/[0.06]">
-              <SearchX className="h-7 w-7 text-slate-700" aria-hidden="true" />
-            </div>
+            <motion.div 
+              animate={{ y: [0, -8, 0] }}
+              transition={{ duration: 3, repeat: Infinity }}
+              className="flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-white/[0.06] to-white/[0.03] border border-white/[0.08]"
+            >
+              <SearchX className="h-10 w-10 text-slate-600" aria-hidden="true" />
+            </motion.div>
             <div>
-              <p className="text-sm font-bold text-slate-500">No se encontraron eventos</p>
-              <p className="mt-1 text-xs text-slate-700">Intenta con otro término o cambia el filtro</p>
+              <p className="text-base font-bold text-slate-400">No se encontraron eventos</p>
+              <p className="mt-2 text-sm text-slate-600">Intenta con otro término o cambia el filtro</p>
             </div>
             {query && (
-              <button
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
                 onClick={() => setQuery('')}
                 type="button"
-                className="rounded-lg border border-white/[0.07] bg-white/[0.03] px-4 py-2 text-xs font-semibold text-slate-500 transition hover:text-slate-300"
+                className="rounded-lg border border-white/[0.1] bg-white/[0.04] px-5 py-2.5 text-sm font-semibold text-slate-500 transition hover:bg-white/[0.08] hover:text-slate-300"
               >
                 Limpiar búsqueda
-              </button>
+              </motion.button>
             )}
           </motion.div>
         ) : (
           <AnimatePresence>
-            <div
-              className="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
               aria-label="Lista de eventos"
             >
               {filtered.map((ev, i) => (
                 <EventCard key={ev.id + ev.type} event={ev} index={i} />
               ))}
-            </div>
+            </motion.div>
           </AnimatePresence>
         )}
 

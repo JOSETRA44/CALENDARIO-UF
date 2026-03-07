@@ -12,15 +12,15 @@ interface Props {
 
 function SkeletonCard() {
   return (
-    <div className="glass-card w-[196px] shrink-0 rounded-2xl p-5 flex flex-col gap-3">
+    <div className="glass-card w-[200px] shrink-0 rounded-2xl p-5 sm:p-6 flex flex-col gap-3">
       <div className="flex items-center justify-between">
-        <div className="h-8 w-8 rounded-xl bg-white/[0.05] animate-pulse" />
-        <div className="h-3 w-10 rounded-full bg-white/[0.04] animate-pulse" />
+        <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-white/[0.08] to-white/[0.03] animate-pulse" />
+        <div className="h-3 w-12 rounded-lg bg-gradient-to-r from-white/[0.06] to-white/[0.02] animate-pulse" />
       </div>
-      <div className="h-3 w-4/5 rounded-lg bg-white/[0.05] animate-pulse" />
-      <div className="h-2 w-3/5 rounded-lg bg-white/[0.04] animate-pulse" />
-      <div className="mt-auto h-px w-full bg-white/[0.04]" />
-      <div className="h-2 w-2/5 rounded-lg bg-white/[0.03] animate-pulse" />
+      <div className="h-3 w-5/6 rounded-lg bg-gradient-to-r from-white/[0.08] to-white/[0.03] animate-pulse" />
+      <div className="h-2 w-3/4 rounded-lg bg-gradient-to-r from-white/[0.06] to-white/[0.02] animate-pulse" />
+      <div className="mt-auto h-px w-full bg-white/[0.05]" />
+      <div className="h-2 w-1/2 rounded-lg bg-gradient-to-r from-white/[0.05] to-white/[0.01] animate-pulse" />
     </div>
   );
 }
@@ -29,17 +29,17 @@ export function UpcomingStrip({ events, loading }: Props) {
   const slice = events.slice(0, 12);
 
   return (
-    <section className="relative z-10 border-t border-white/[0.05] py-12">
-      <div className="mx-auto max-w-screen-xl px-4 sm:px-8">
+    <section className="relative z-10 border-y border-white/[0.05] py-16">
+      <div className="relative mx-auto max-w-screen-2xl px-4 sm:px-8 lg:px-12">
 
         {/* Header */}
-        <div className="mb-5 flex items-center justify-between">
+        <div className="mb-6 flex items-center justify-between">
           <motion.h2
-            initial={{ opacity: 0, x: -14 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ type: 'spring', stiffness: 260, damping: 24 }}
-            className="text-lg font-black tracking-tight text-slate-100"
+            transition={{ type: 'spring', stiffness: 280, damping: 28 }}
+            className="bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100 bg-clip-text text-xl sm:text-2xl font-black tracking-tight text-transparent"
           >
             Próximos Eventos
           </motion.h2>
@@ -48,17 +48,22 @@ export function UpcomingStrip({ events, loading }: Props) {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="flex items-center gap-1 text-xs font-semibold text-slate-600"
+              className="flex items-center gap-1.5 text-xs font-semibold text-slate-500/80 hover:text-slate-400 transition-colors"
             >
               Desliza
-              <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
+              <motion.div
+                animate={{ x: [0, 4, 0] }}
+                transition={{ duration: 2, repeat: Infinity }}
+              >
+                <ChevronRight className="h-4 w-4" aria-hidden="true" />
+              </motion.div>
             </motion.span>
           )}
         </div>
 
         {/* Horizontal scroll strip */}
         <div
-          className="flex gap-3 overflow-x-auto scrollbar-hide pb-2"
+          className="flex gap-4 overflow-x-auto scrollbar-hide pb-2 -mx-4 px-4 sm:-mx-8 sm:px-8 lg:-mx-12 lg:px-12"
           aria-label="Próximos eventos"
         >
           {loading

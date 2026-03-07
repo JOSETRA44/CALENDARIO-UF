@@ -14,12 +14,21 @@ interface Props {
 
 const container: Variants = {
   hidden: {},
-  show:   { transition: { staggerChildren: 0.09 } },
+  show:   { transition: { staggerChildren: 0.08, delayChildren: 0.1 } },
 };
 
 const item: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show:   { opacity: 1, y: 0, transition: { type: 'spring', stiffness: 260, damping: 24 } },
+  hidden: { opacity: 0, y: 32 },
+  show:   { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      type: 'spring', 
+      stiffness: 300, 
+      damping: 32,
+      mass: 0.5
+    } 
+  },
 };
 
 export function Hero({ nextEvent, loading }: Props) {
@@ -27,16 +36,16 @@ export function Hero({ nextEvent, loading }: Props) {
   const isBirthday = nextEvent?.type === 'birthday';
 
   const nameGradient = isBirthday
-    ? 'from-rose-300 via-pink-200 to-fuchsia-300'
-    : 'from-amber-300 via-yellow-200 to-orange-300';
+    ? 'from-rose-200 via-pink-200 to-fuchsia-200'
+    : 'from-amber-200 via-yellow-200 to-orange-200';
 
   const glowCls = loading || !nextEvent
     ? 'hero-glow-empty'
     : isBirthday ? 'hero-glow-birthday' : 'hero-glow-holiday';
 
   const badgeBg    = isBirthday
-    ? 'bg-rose-500/10 border-rose-500/25 text-rose-300'
-    : 'bg-amber-500/10 border-amber-500/25 text-amber-300';
+    ? 'bg-gradient-to-r from-rose-500/15 to-pink-500/10 border border-rose-500/40 text-rose-300'
+    : 'bg-gradient-to-r from-amber-500/15 to-yellow-500/10 border border-amber-500/40 text-amber-300';
   const cdColor    = isBirthday ? 'rose' : 'amber';
   const TypeIcon   = isBirthday ? Cake : Flag;
   const isToday    = nextEvent?.isToday ?? false;
