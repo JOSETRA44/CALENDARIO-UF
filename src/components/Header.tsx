@@ -1,55 +1,39 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { CalendarDays } from 'lucide-react';
-import { supabase } from '@/lib/supabase';
+
+function formatNow() {
+  const now = new Date();
+  const d = now.toLocaleDateString('es-CL', {
+    weekday: 'long', day: 'numeric', month: 'long',
+  });
+  const t = now.toLocaleTimeString('es-CL', {
+    hour: '2-digit', minute: '2-digit', second: '2-digit',
+  });
+  return { date: d.charAt(0).toUpperCase() + d.slice(1), time: t };
+}
 
 export function Header() {
   const [mounted, setMounted] = useState(false);
   const [dateStr, setDateStr] = useState('');
   const [timeStr, setTimeStr] = useState('');
-  const serverTimeOffsetRef = useRef<number>(0);
-  const rafRef = useRef<number | undefined>(undefined);
 
   useEffect(() => {
+    // Set immediately to avoid first-render flash
+    const { date, time } = formatNow();
+    setDateStr(date);
+    setTimeStr(time);
     setMounted(true);
 
-    // Get server time offset to counter client clock manipulation
-    const initServerTimeOffset = async () => {
-      try {
-        const { data } = await supabase.from('cumpleanios').select('created_at').limit(1);
-        if (data && data.length > 0) {
-          const serverTime = new Date(data[0].created_at).getTime();
-          const clientTime = Date.now();
-          serverTimeOffsetRef.current = serverTime - clientTime;
-        }
-      } catch (error) {
-        console.error('[Header] Failed to get server time:', error);
-      }
-    };
+    // Update every second — date only changes at midnight, time every second
+    const id = setInterval(() => {
+      const { date: d, time: t } = formatNow();
+      setDateStr(d);
+      setTimeStr(t);
+    }, 1000);
 
-    initServerTimeOffset();
-
-    // Use requestAnimationFrame for smooth updates without setInterval
-    const update = () => {
-      const clientNow = Date.now();
-      const serverNow = clientNow + serverTimeOffsetRef.current;
-      const now = new Date(serverNow);
-      
-      const d = now.toLocaleDateString('es-CL', {
-        weekday: 'long', day: 'numeric', month: 'long',
-      });
-      setDateStr(d.charAt(0).toUpperCase() + d.slice(1));
-      setTimeStr(now.toLocaleTimeString('es-CL', { hour: '2-digit', minute: '2-digit', second: '2-digit' }));
-      
-      rafRef.current = requestAnimationFrame(update);
-    };
-
-    rafRef.current = requestAnimationFrame(update);
-    
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current);
-    };
+    return () => clearInterval(id);
   }, []);
 
   return (

@@ -81,7 +81,7 @@ export function Hero({ nextEvent, loading }: Props) {
         animate="show"
       >
         {/* Event-type badge */}
-        <motion.div variants={item} className="opacity-0 animate-fade-in-up">
+        <motion.div variants={item}>
           {isToday ? (
             <span className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-emerald-500/20 to-teal-500/20 border border-emerald-500/30 px-5 py-1.5 text-[11px] font-black uppercase tracking-widest text-emerald-300">
               <Sparkles className="h-3 w-3" aria-hidden="true" />

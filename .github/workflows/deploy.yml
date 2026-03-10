@@ -42,10 +42,12 @@ jobs:
       - name: Build Next.js static export
         run: npm run build
         env:
+          # Required by next.config.ts to enable output:'export' mode
+          GITHUB_PAGES: 'true'
           # NEXT_PUBLIC_ values are embedded in the browser bundle at build time.
-          # They are intentionally public (anon key, not secret key).
-          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL || 'https://dnzzqjrmyyvukeadsxei.supabase.co' }}
-          NEXT_PUBLIC_SUPABASE_ANON_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenpxanJteXl2dWtlYWRzeGVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MjU3MDEsImV4cCI6MjA4ODQwMTcwMX0.rgWNOBGecWOBR17EDQiYDQ6ECuj5JZHKXSrfXt5VZxg' }}
+          # They are intentionally public (anon key, not service_role key).
+          NEXT_PUBLIC_SUPABASE_URL: 'https://dnzzqjrmyyvukeadsxei.supabase.co'
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRuenpxanJteXl2dWtlYWRzeGVpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4MjU3MDEsImV4cCI6MjA4ODQwMTcwMX0.rgWNOBGecWOBR17EDQiYDQ6ECuj5JZHKXSrfXt5VZxg'
           NEXT_PUBLIC_BASE_PATH: ${{ steps.repo-name.outputs.base-path }}
 
       - name: Configure Pages

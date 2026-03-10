@@ -159,20 +159,21 @@
 }
 
 /* ── Animation utility classes ───────────────────────────────── */
-.ping-slow         { animation: none; }
-.aurora-bar        { animation: none; }
-.glow-pulse        { animation: none; }
-.slide-in-top      { animation: slide-in-top 0.4s ease-out forwards; }
-.fade-in-up        { animation: fade-in-up 0.5s ease-out forwards; }
-.bounce-gentle     { animation: none; }
-.scale-in          { animation: scale-in 0.4s ease-out forwards; }
-.gradient-shift    { animation: none; }
+.ping-slow      { animation: ping      3s cubic-bezier(0,0,0.2,1) infinite; }
+.aurora-bar     { animation: aurora    4s ease-in-out infinite; }
+.glow-pulse     { animation: glow-pulse 3s ease-in-out infinite; }
+.bounce-gentle  { animation: bounce-gentle 2.4s ease-in-out infinite; }
+.gradient-shift { animation: gradient-shift 6s ease infinite; }
 
 /* ── Scrollbar hide (for horizontal strips) ──────────────────── */
 .scrollbar-hide::-webkit-scrollbar { display: none; }
 .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
 
 /* ── Custom keyframes ────────────────────────────────────────── */
+@keyframes ping {
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+
 @keyframes blink {
   0%, 100% { opacity: 0.6; }
   50%       { opacity: 0.1; }
