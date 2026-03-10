@@ -49,8 +49,6 @@ function drawParticle(ctx: CanvasRenderingContext2D, p: Particle) {
   ctx.save();
   ctx.globalAlpha = Math.max(0, Math.min(1, p.alpha));
   ctx.fillStyle = p.color;
-  ctx.shadowColor = p.color;
-  ctx.shadowBlur = p.size * 1.5;
   ctx.translate(p.x, p.y);
   ctx.rotate(p.rotation);
 
@@ -101,39 +99,40 @@ export function FooterParticles() {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    const COUNT = 55;
+    const COUNT = 35;
+    const FRAME_INTERVAL = 1000 / 30; // 30 fps cap
     let particles: Particle[] = [];
     let raf: number;
+    let lastTime = 0;
 
     function resize() {
       if (!canvas) return;
       canvas.width  = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
-      // Re-create particles scaled to new size
       particles = Array.from({ length: COUNT }, () =>
         createParticle(canvas.width, canvas.height)
       );
     }
 
-    function tick() {
+    function tick(now: number) {
+      raf = requestAnimationFrame(tick);
+      if (now - lastTime < FRAME_INTERVAL) return;
+      lastTime = now;
+
       if (!canvas || !ctx) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       for (const p of particles) {
-        // Update
         p.x += p.vx;
         p.y += p.vy;
         p.rotation += p.rotationSpeed;
         p.alpha += p.alphaSpeed;
 
-        // Reverse alpha fade
         if (p.alpha <= 0.1 || p.alpha >= 0.7) p.alphaSpeed *= -1;
 
-        // Wrap horizontally
         if (p.x < -10) p.x = canvas.width + 10;
         if (p.x > canvas.width + 10) p.x = -10;
 
-        // Reset when particle drifts too high
         if (p.y < -20) {
           p.y = canvas.height + 10;
           p.x = Math.random() * canvas.width;
@@ -141,12 +140,10 @@ export function FooterParticles() {
 
         drawParticle(ctx, p);
       }
-
-      raf = requestAnimationFrame(tick);
     }
 
     resize();
-    tick();
+    raf = requestAnimationFrame(tick);
 
     const ro = new ResizeObserver(resize);
     ro.observe(canvas);

@@ -132,43 +132,40 @@
 .cd-glow-amber  { background: radial-gradient(ellipse at 50% 0%, rgba(245,158,11,0.24), transparent 65%); }
 .cd-glow-indigo { background: radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.24), transparent 65%); }
 
-/* ── Hero name animated shimmer ──────────────────────────────── */
+/* ── Hero name — static gradient blanco→color + glow sutil ──── */
 .hero-name-birthday {
-  background: linear-gradient(135deg, #fda4af 0%, #f472b6 20%, #e879f9 40%, #fda4af 60%, #fbcfe8 80%, #f472b6 100%);
-  background-size: 300% auto;
+  background: linear-gradient(165deg, #ffffff 0%, #fecdd3 55%, #fda4af 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 5s linear infinite;
+  filter: drop-shadow(0 0 48px rgba(244,63,94,0.45)) drop-shadow(0 0 12px rgba(244,63,94,0.25));
 }
 .hero-name-holiday {
-  background: linear-gradient(135deg, #fcd34d 0%, #fb923c 20%, #fbbf24 40%, #f97316 60%, #fde68a 80%, #fb923c 100%);
-  background-size: 300% auto;
+  background: linear-gradient(165deg, #ffffff 0%, #fef3c7 55%, #fcd34d 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 5s linear infinite;
+  filter: drop-shadow(0 0 48px rgba(245,158,11,0.45)) drop-shadow(0 0 12px rgba(245,158,11,0.25));
 }
 .hero-name-today {
-  background: linear-gradient(135deg, #6ee7b7 0%, #34d399 20%, #10b981 40%, #6ee7b7 60%, #a7f3d0 80%, #34d399 100%);
-  background-size: 300% auto;
+  background: linear-gradient(165deg, #ffffff 0%, #d1fae5 55%, #6ee7b7 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: shimmer 4s linear infinite;
+  filter: drop-shadow(0 0 48px rgba(16,185,129,0.45)) drop-shadow(0 0 12px rgba(16,185,129,0.25));
 }
 .hero-name-empty {
-  background: linear-gradient(135deg, #475569, #64748b, #475569);
+  background: linear-gradient(165deg, #e2e8f0 0%, #94a3b8 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 /* ── Hero decorative concentric rings (0×0 centered via flex) ── */
-.hero-ring-rose    { width: 0; height: 0; border-radius: 50%; box-shadow: 0 0 0 180px rgba(244,63,94,0.045), 0 0 0 360px rgba(244,63,94,0.028), 0 0 0 540px rgba(244,63,94,0.014), 0 0 0 720px rgba(244,63,94,0.007); animation: hero-ring-pulse 8s ease-in-out infinite; }
-.hero-ring-amber   { width: 0; height: 0; border-radius: 50%; box-shadow: 0 0 0 180px rgba(245,158,11,0.05),  0 0 0 360px rgba(245,158,11,0.030), 0 0 0 540px rgba(245,158,11,0.015), 0 0 0 720px rgba(245,158,11,0.008); animation: hero-ring-pulse 8s ease-in-out infinite; }
-.hero-ring-emerald { width: 0; height: 0; border-radius: 50%; box-shadow: 0 0 0 180px rgba(16,185,129,0.06),  0 0 0 360px rgba(16,185,129,0.035), 0 0 0 540px rgba(16,185,129,0.018), 0 0 0 720px rgba(16,185,129,0.009); animation: hero-ring-pulse 6s ease-in-out infinite; }
-.hero-ring-indigo  { width: 0; height: 0; border-radius: 50%; box-shadow: 0 0 0 180px rgba(99,102,241,0.045), 0 0 0 360px rgba(99,102,241,0.028), 0 0 0 540px rgba(99,102,241,0.014), 0 0 0 720px rgba(99,102,241,0.007); animation: hero-ring-pulse 8s ease-in-out infinite; }
+.hero-ring-rose    { width: 0; height: 0; border-radius: 50%; box-shadow: 0 0 0 160px rgba(244,63,94,0.14), 0 0 0 320px rgba(244,63,94,0.08), 0 0 0 480px rgba(244,63,94,0.04), 0 0 0 640px rgba(244,63,94,0.018); animation: hero-ring-pulse 8s ease-in-out infinite; }
+.hero-ring-amber   { width: 0; height: 0; border-radius: 50%; box-shadow: 0 0 0 160px rgba(245,158,11,0.15),  0 0 0 320px rgba(245,158,11,0.09),  0 0 0 480px rgba(245,158,11,0.045), 0 0 0 640px rgba(245,158,11,0.02);  animation: hero-ring-pulse 8s ease-in-out infinite; }
+.hero-ring-emerald { width: 0; height: 0; border-radius: 50%; box-shadow: 0 0 0 160px rgba(16,185,129,0.17),  0 0 0 320px rgba(16,185,129,0.10),  0 0 0 480px rgba(16,185,129,0.05),  0 0 0 640px rgba(16,185,129,0.022); animation: hero-ring-pulse 6s ease-in-out infinite; }
+.hero-ring-indigo  { width: 0; height: 0; border-radius: 50%; box-shadow: 0 0 0 160px rgba(99,102,241,0.14),  0 0 0 320px rgba(99,102,241,0.08),  0 0 0 480px rgba(99,102,241,0.04),  0 0 0 640px rgba(99,102,241,0.018); animation: hero-ring-pulse 8s ease-in-out infinite; }
 
 /* ── Hero date chip icon bg ───────────────────────────────────── */
 .chip-icon-birthday { background: rgba(244,63,94,0.18);   color: #fda4af; box-shadow: 0 0 0 1px rgba(244,63,94,0.25);  }
@@ -178,27 +175,27 @@
 
 /* ── Hero ambient glow variants ──────────────────────────────── */
 .hero-glow-birthday {
-  background: radial-gradient(ellipse 900px 400px at 50% 40%,
-    rgba(244,63,94,0.35) 0%,
-    rgba(217,70,239,0.20) 25%,
-    rgba(99,102,241,0.12) 50%,
+  background: radial-gradient(ellipse 800px 500px at 50% 45%,
+    rgba(244,63,94,0.60) 0%,
+    rgba(217,70,239,0.38) 25%,
+    rgba(99,102,241,0.18) 55%,
     transparent 85%
   );
 }
 .hero-glow-holiday {
-  background: radial-gradient(ellipse 900px 400px at 50% 40%,
-    rgba(245,158,11,0.35) 0%,
-    rgba(251,191,36,0.20) 25%,
-    rgba(99,102,241,0.12) 50%,
+  background: radial-gradient(ellipse 800px 500px at 50% 45%,
+    rgba(245,158,11,0.60) 0%,
+    rgba(251,191,36,0.38) 25%,
+    rgba(99,102,241,0.18) 55%,
     transparent 85%
   );
 }
 .hero-glow-empty {
-  background: radial-gradient(ellipse 900px 400px at 50% 40%,
-    rgba(99,102,241,0.25) 0%,
-    rgba(139,92,246,0.15) 30%,
-    rgba(148,163,220,0.05) 55%,
-    transparent 80%
+  background: radial-gradient(ellipse 800px 500px at 50% 45%,
+    rgba(99,102,241,0.45) 0%,
+    rgba(139,92,246,0.28) 30%,
+    rgba(148,163,220,0.10) 60%,
+    transparent 85%
   );
 }
 

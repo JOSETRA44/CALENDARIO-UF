@@ -38,14 +38,10 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50">
-      {/* Backdrop with enhanced blur */}
-      <div 
-        className="absolute inset-0 bg-gradient-to-b from-blue-950/40 to-purple-950/20 backdrop-blur-xl" 
-        aria-hidden="true" 
-      />
-      <div 
-        className="absolute inset-0 bg-[#050514]/70 backdrop-blur-2xl" 
-        aria-hidden="true" 
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-[#050514]/80 backdrop-blur-xl"
+        aria-hidden="true"
       />
 
       <div className="relative mx-auto max-w-screen-2xl px-4 sm:px-8 lg:px-12 flex items-center justify-between h-16">
