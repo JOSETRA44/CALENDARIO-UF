@@ -101,7 +101,7 @@ CREATE TRIGGER trg_festivos_updated_at
 
 ---
 
-### BLOQUE 4 — Días festivos de Chile 2026 (datos de ejemplo)
+### BLOQUE 4 — Días festivos de peru 2026 (datos de ejemplo)
 
 ```sql
 INSERT INTO public.dias_festivos (nombre, fecha, descripcion, tipo, es_recurrente, icono) VALUES
@@ -109,10 +109,10 @@ INSERT INTO public.dias_festivos (nombre, fecha, descripcion, tipo, es_recurrent
   ('Día del Trabajo',                '2026-05-01', 'Día Internacional de los Trabajadores',            'nacional', TRUE, '👷'),
   ('Día de las Glorias Navales',     '2026-05-21', 'Conmemoración del Combate Naval de Iquique',       'nacional', TRUE, '⚓'),
   ('San Pedro y San Pablo',          '2026-06-29', 'Festividad religiosa',                             'nacional', TRUE, '⛪'),
-  ('Día de la Virgen del Carmen',    '2026-07-16', 'Patrona de Chile',                                 'nacional', TRUE, '🙏'),
+  ('Día de la Virgen del Carmen',    '2026-07-16', 'Patrona de peru',                                 'nacional', TRUE, '🙏'),
   ('Asunción de la Virgen',          '2026-08-15', 'Festividad religiosa',                             'nacional', TRUE, '✨'),
   ('Fiestas Patrias',                '2026-09-18', 'Primer día de las Fiestas Patrias',               'nacional', TRUE, '🇨🇱'),
-  ('Día del Ejército',               '2026-09-19', 'Glorias del Ejército de Chile',                    'nacional', TRUE, '🪖'),
+  ('Día del Ejército',               '2026-09-19', 'Glorias del Ejército de peru',                    'nacional', TRUE, '🪖'),
   ('Día de la Raza',                 '2026-10-12', 'Encuentro de dos mundos',                          'nacional', TRUE, '🌎'),
   ('Día de las Iglesias Evangélicas','2026-10-31', 'Festividad evangélica',                            'nacional', TRUE, '✝️'),
   ('Día de Todos los Santos',        '2026-11-01', 'Festividad religiosa',                             'nacional', TRUE, '🕯️'),

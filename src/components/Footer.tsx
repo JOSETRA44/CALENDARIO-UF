@@ -87,7 +87,7 @@ export function Footer({ birthdayCount, holidayCount }: Props) {
               </h2>
               <p className="flex items-center gap-2 text-sm font-medium text-slate-500">
                 <Cake className="h-3.5 w-3.5 text-rose-400/60" aria-hidden="true" />
-                <span>Cumpleaños y Días Festivos · Chile</span>
+                <span>Cumpleaños y Días Festivos · peru</span>
                 <Flag className="h-3.5 w-3.5 text-amber-400/60" aria-hidden="true" />
               </p>
             </motion.div>
@@ -126,7 +126,7 @@ export function Footer({ birthdayCount, holidayCount }: Props) {
               <span className="flex items-center gap-1">
                 Hecho con
                 <Heart className="inline h-3 w-3 text-rose-500/50" aria-hidden="true" />
-                en Chile
+                en peru
               </span>
               <span className="text-slate-800" aria-hidden="true">·</span>
               <span>Datos vía Supabase</span>

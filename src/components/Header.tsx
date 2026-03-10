@@ -63,7 +63,7 @@ export function Header() {
               Calendario UF
             </span>
             <span className="text-[10px] font-semibold uppercase tracking-widest text-indigo-400/70">
-              Chile · Eventos
+              peru · Eventos
             </span>
           </div>
         </div>

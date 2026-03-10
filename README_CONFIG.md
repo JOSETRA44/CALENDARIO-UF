@@ -227,4 +227,4 @@ For issues or questions:
 
 ---
 
-**Made with ❤️ for UF Chile**
+**Made with ❤️ for UF peru**
