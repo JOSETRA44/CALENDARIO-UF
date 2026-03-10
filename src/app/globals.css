@@ -132,6 +132,50 @@
 .cd-glow-amber  { background: radial-gradient(ellipse at 50% 0%, rgba(245,158,11,0.24), transparent 65%); }
 .cd-glow-indigo { background: radial-gradient(ellipse at 50% 0%, rgba(99,102,241,0.24), transparent 65%); }
 
+/* ── Hero name animated shimmer ──────────────────────────────── */
+.hero-name-birthday {
+  background: linear-gradient(135deg, #fda4af 0%, #f472b6 20%, #e879f9 40%, #fda4af 60%, #fbcfe8 80%, #f472b6 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+.hero-name-holiday {
+  background: linear-gradient(135deg, #fcd34d 0%, #fb923c 20%, #fbbf24 40%, #f97316 60%, #fde68a 80%, #fb923c 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 5s linear infinite;
+}
+.hero-name-today {
+  background: linear-gradient(135deg, #6ee7b7 0%, #34d399 20%, #10b981 40%, #6ee7b7 60%, #a7f3d0 80%, #34d399 100%);
+  background-size: 300% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s linear infinite;
+}
+.hero-name-empty {
+  background: linear-gradient(135deg, #475569, #64748b, #475569);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Hero decorative concentric rings (0×0 centered via flex) ── */
+.hero-ring-rose    { width: 0; height: 0; border-radius: 50%; box-shadow: 0 0 0 180px rgba(244,63,94,0.045), 0 0 0 360px rgba(244,63,94,0.028), 0 0 0 540px rgba(244,63,94,0.014), 0 0 0 720px rgba(244,63,94,0.007); animation: hero-ring-pulse 8s ease-in-out infinite; }
+.hero-ring-amber   { width: 0; height: 0; border-radius: 50%; box-shadow: 0 0 0 180px rgba(245,158,11,0.05),  0 0 0 360px rgba(245,158,11,0.030), 0 0 0 540px rgba(245,158,11,0.015), 0 0 0 720px rgba(245,158,11,0.008); animation: hero-ring-pulse 8s ease-in-out infinite; }
+.hero-ring-emerald { width: 0; height: 0; border-radius: 50%; box-shadow: 0 0 0 180px rgba(16,185,129,0.06),  0 0 0 360px rgba(16,185,129,0.035), 0 0 0 540px rgba(16,185,129,0.018), 0 0 0 720px rgba(16,185,129,0.009); animation: hero-ring-pulse 6s ease-in-out infinite; }
+.hero-ring-indigo  { width: 0; height: 0; border-radius: 50%; box-shadow: 0 0 0 180px rgba(99,102,241,0.045), 0 0 0 360px rgba(99,102,241,0.028), 0 0 0 540px rgba(99,102,241,0.014), 0 0 0 720px rgba(99,102,241,0.007); animation: hero-ring-pulse 8s ease-in-out infinite; }
+
+/* ── Hero date chip icon bg ───────────────────────────────────── */
+.chip-icon-birthday { background: rgba(244,63,94,0.18);   color: #fda4af; box-shadow: 0 0 0 1px rgba(244,63,94,0.25);  }
+.chip-icon-holiday  { background: rgba(245,158,11,0.18);  color: #fcd34d; box-shadow: 0 0 0 1px rgba(245,158,11,0.25); }
+.chip-icon-today    { background: rgba(16,185,129,0.18);  color: #6ee7b7; box-shadow: 0 0 0 1px rgba(16,185,129,0.25); }
+.chip-icon-loading  { background: rgba(148,163,184,0.10); color: #64748b; }
+
 /* ── Hero ambient glow variants ──────────────────────────────── */
 .hero-glow-birthday {
   background: radial-gradient(ellipse 900px 400px at 50% 40%,
@@ -193,6 +237,11 @@
   0%   { box-shadow: 0 0 0 0   rgba(16,185,129,0.7); }
   70%  { box-shadow: 0 0 0 10px rgba(16,185,129,0); }
   100% { box-shadow: 0 0 0 0   rgba(16,185,129,0); }
+}
+
+@keyframes hero-ring-pulse {
+  0%, 100% { opacity: 0.6; transform: scale(0.97); }
+  50%       { opacity: 1;   transform: scale(1.03); }
 }
 
 @keyframes aurora {
@@ -262,8 +311,8 @@
     #f43f5e 100%
   );
   background-size: 300% auto;
-  background-clip: text;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shimmer 7s linear infinite;
 }
